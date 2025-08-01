@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadhya Eduverse</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .status {
+            color: #28a745;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        .api-links {
+            margin: 2rem 0;
+        }
+        .api-links a {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .api-links a:hover {
+            background: #0056b3;
+        }
+        .note {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-left: 4px solid #007bff;
+            margin: 1rem 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Aadhya Eduverse</h1>
+        <div class="status">✅ Backend Server is Running Successfully!</div>
+        
+        <p>Welcome to Aadhya Eduverse - Your Educational Platform</p>
+        
+        <div class="api-links">
+            <h3>Available API Endpoints:</h3>
+            <a href="/api/services" target="_blank">Services API</a>
+            <a href="/api/products" target="_blank">Products API</a>
+            <a href="/api/company" target="_blank">Company Info API</a>
+        </div>
+        
+        <div class="note">
+            <h4>📝 Next Steps:</h4>
+            <p>To set up the React frontend:</p>
+            <ol>
+                <li>Navigate to <code>src/main/resources/static/</code></li>
+                <li>Run <code>npm install</code> to install dependencies</li>
+                <li>Run <code>npm run build</code> to build the React app</li>
+                <li>Copy the build files to the static folder</li>
+            </ol>
+        </div>
+        
+        <div class="note">
+            <h4>🔧 Development Mode:</h4>
+            <p>For development, you can run the React app separately:</p>
+            <ol>
+                <li>In the static folder, run <code>npm start</code></li>
+                <li>React app will run on <code>http://localhost:3000</code></li>
+                <li>It will proxy API calls to this backend server</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
