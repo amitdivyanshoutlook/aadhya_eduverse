@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Grid, Paper, TextField, Button, Breadcrumbs, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import { Email, Phone, LocationOn } from '@mui/icons-material';
+import { 
+  Typography, 
+  Grid, 
+  Paper, 
+  TextField, 
+  Button, 
+  Box,
+  CircularProgress,
+  Alert,
+  Card,
+  Avatar,
+  Fade,
+  Slide
+} from '@mui/material';
+import { Email, Phone, LocationOn, Send } from '@mui/icons-material';
+import PageLayout from '../components/common/PageLayout';
 import api from '../services/api';
 
 const ContactPage = () => {
@@ -52,88 +65,151 @@ const ContactPage = () => {
     });
   };
 
+  const contactInfo = [
+    {
+      icon: <Email />,
+      title: 'Email',
+      value: companyInfo?.email || 'contact@aadhyaeduverse.com',
+      color: '#087CFA'
+    },
+    {
+      icon: <Phone />,
+      title: 'Phone',
+      value: companyInfo?.phone || '+91 9876543210',
+      color: '#059862'
+    },
+    {
+      icon: <LocationOn />,
+      title: 'Address',
+      value: companyInfo?.address || '123 Tech Park, Innovation Street, Bangalore, India',
+      color: '#FF6B35'
+    }
+  ];
+
   if (loading) {
     return (
-      <Container sx={{ py: 8 }}>
-        <Typography>Loading...</Typography>
-      </Container>
+      <PageLayout
+        title="Contact Us"
+        subtitle="Get in touch with our team"
+        breadcrumbs={['Contact Us']}
+        showHero={false}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '40vh',
+            flexDirection: 'column',
+            gap: 2
+          }}
+        >
+          <CircularProgress size={60} thickness={4} />
+          <Typography variant="h6" color="text.secondary">
+            Loading contact information...
+          </Typography>
+        </Box>
+      </PageLayout>
     );
   }
 
   if (error) {
     return (
-      <Container sx={{ py: 8 }}>
-        <Typography color="error">{error}</Typography>
-      </Container>
+      <PageLayout
+        title="Contact Us"
+        subtitle="Get in touch with our team"
+        breadcrumbs={['Contact Us']}
+        showHero={false}
+      >
+        <Alert 
+          severity="error" 
+          sx={{ 
+            borderRadius: 2,
+            border: '1px solid #E53E3E',
+            backgroundColor: 'rgba(229, 62, 62, 0.04)'
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Oops! Something went wrong
+          </Typography>
+          <Typography>{error}</Typography>
+        </Alert>
+      </PageLayout>
     );
   }
 
   return (
-    <Box sx={{ py: 4 }}>
-      <Container maxWidth="lg">
-        <Breadcrumbs sx={{ mb: 4 }}>
-          <Link component={RouterLink} to="/" underline="hover" color="inherit">
-            Home
-          </Link>
-          <Typography color="text.primary">Contact Us</Typography>
-        </Breadcrumbs>
-
-        <Typography variant="h3" component="h1" gutterBottom>
-          Contact Us
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary" paragraph sx={{ mb: 6 }}>
-          Have questions or want to learn more about our products and services? Get in touch with us!
-        </Typography>
-
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={5}>
-            <Paper elevation={3} sx={{ p: 4, height: '100%' }}>
-              <Typography variant="h5" gutterBottom>
+    <PageLayout
+      title="Contact Us"
+      subtitle="Have questions or want to learn more about our products and services? Get in touch with us!"
+      breadcrumbs={['Contact Us']}
+      heroBackground="gradient"
+    >
+      <Grid container spacing={6}>
+        {/* Contact Information */}
+        <Grid item xs={12} lg={5}>
+          <Fade in timeout={800}>
+            <Box>
+              <Typography variant="h4" sx={{ mb: 4, fontWeight: 600 }}>
                 Get In Touch
               </Typography>
-              <Typography paragraph>
+              <Typography paragraph sx={{ mb: 4, lineHeight: 1.7, fontSize: '1.1rem' }}>
                 We'd love to hear from you. Please feel free to contact us using the information below or fill out the contact form.
               </Typography>
 
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, mt: 4 }}>
-                <Email sx={{ mr: 2, color: 'primary.main' }} />
-                <Box>
-                  <Typography variant="subtitle2">Email</Typography>
-                  <Typography variant="body2">
-                    {companyInfo?.email || 'contact@aadhyaeduverse.com'}
-                  </Typography>
-                </Box>
-              </Box>
+              <Grid container spacing={3}>
+                {contactInfo.map((info, index) => (
+                  <Grid item xs={12} key={index}>
+                    <Slide in timeout={1000 + index * 200} direction="right">
+                      <Card 
+                        sx={{ 
+                          p: 3,
+                          transition: 'all 0.2s ease-in-out',
+                          '&:hover': {
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)'
+                          }
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+                          <Avatar
+                            sx={{
+                              bgcolor: info.color,
+                              width: 56,
+                              height: 56,
+                              boxShadow: `0 4px 16px ${info.color}40`
+                            }}
+                          >
+                            {info.icon}
+                          </Avatar>
+                          <Box>
+                            <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
+                              {info.title}
+                            </Typography>
+                            <Typography variant="body1" color="text.secondary">
+                              {info.value}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Card>
+                    </Slide>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+          </Fade>
+        </Grid>
 
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Phone sx={{ mr: 2, color: 'primary.main' }} />
-                <Box>
-                  <Typography variant="subtitle2">Phone</Typography>
-                  <Typography variant="body2">
-                    {companyInfo?.phone || '+91 9876543210'}
-                  </Typography>
-                </Box>
-              </Box>
-
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <LocationOn sx={{ mr: 2, color: 'primary.main' }} />
-                <Box>
-                  <Typography variant="subtitle2">Address</Typography>
-                  <Typography variant="body2">
-                    {companyInfo?.address || '123 Tech Park, Innovation Street, Bangalore, India'}
-                  </Typography>
-                </Box>
-              </Box>
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} md={7}>
-            <Paper elevation={3} sx={{ p: 4 }}>
-              <Typography variant="h5" gutterBottom>
+        {/* Contact Form */}
+        <Grid item xs={12} lg={7}>
+          <Slide in timeout={1200} direction="left">
+            <Card sx={{ p: 4 }}>
+              <Typography variant="h4" sx={{ mb: 3, fontWeight: 600 }}>
                 Send Us a Message
               </Typography>
+              
               <form onSubmit={handleSubmit}>
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
@@ -142,7 +218,18 @@ const ContactPage = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      margin="normal"
+                      variant="outlined"
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          backgroundColor: '#F7F8FA',
+                          '&:hover': {
+                            backgroundColor: '#FFFFFF'
+                          },
+                          '&.Mui-focused': {
+                            backgroundColor: '#FFFFFF'
+                          }
+                        }
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -154,7 +241,18 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      margin="normal"
+                      variant="outlined"
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          backgroundColor: '#F7F8FA',
+                          '&:hover': {
+                            backgroundColor: '#FFFFFF'
+                          },
+                          '&.Mui-focused': {
+                            backgroundColor: '#FFFFFF'
+                          }
+                        }
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -165,7 +263,18 @@ const ContactPage = () => {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      margin="normal"
+                      variant="outlined"
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          backgroundColor: '#F7F8FA',
+                          '&:hover': {
+                            backgroundColor: '#FFFFFF'
+                          },
+                          '&.Mui-focused': {
+                            backgroundColor: '#FFFFFF'
+                          }
+                        }
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -174,31 +283,48 @@ const ContactPage = () => {
                       label="Your Message"
                       name="message"
                       multiline
-                      rows={4}
+                      rows={5}
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      margin="normal"
+                      variant="outlined"
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          backgroundColor: '#F7F8FA',
+                          '&:hover': {
+                            backgroundColor: '#FFFFFF'
+                          },
+                          '&.Mui-focused': {
+                            backgroundColor: '#FFFFFF'
+                          }
+                        }
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <Button
                       type="submit"
                       variant="contained"
-                      color="primary"
                       size="large"
-                      sx={{ mt: 2 }}
+                      startIcon={<Send />}
+                      sx={{
+                        mt: 2,
+                        px: 4,
+                        py: 1.5,
+                        fontSize: '1rem',
+                        fontWeight: 600
+                      }}
                     >
                       Send Message
                     </Button>
                   </Grid>
                 </Grid>
               </form>
-            </Paper>
-          </Grid>
+            </Card>
+          </Slide>
         </Grid>
-      </Container>
-    </Box>
+      </Grid>
+    </PageLayout>
   );
 };
 

@@ -62,33 +62,33 @@ const HomePage = () => {
       icon: <Lightbulb />,
       title: 'Innovation First',
       description: 'Cutting-edge AI-powered learning solutions that adapt to your pace',
-      color: '#FF6B6B'
+      color: '#087CFA' // JetBrains blue
     },
     {
       icon: <Speed />,
       title: 'Fast Track Learning',
       description: 'Accelerated programs designed for quick skill acquisition',
-      color: '#4ECDC4'
+      color: '#059862' // JetBrains green
     },
     {
       icon: <Security />,
       title: 'Industry Certified',
       description: 'Recognized certifications that boost your career prospects',
-      color: '#45B7D1'
+      color: '#F4AF3D' // JetBrains yellow
     },
     {
       icon: <Support />,
       title: '24/7 Support',
       description: 'Round-the-clock mentorship and technical assistance',
-      color: '#96CEB4'
+      color: '#FF6B35' // JetBrains orange
     }
   ];
 
   const achievements = [
-    { icon: <People />, value: '5000+', label: 'Students Trained', color: '#667eea' },
-    { icon: <EmojiEvents />, value: '100+', label: 'Courses Delivered', color: '#f093fb' },
-    { icon: <Star />, value: '4.9/5', label: 'Average Rating', color: '#4facfe' },
-    { icon: <TrendingUp />, value: '98%', label: 'Success Rate', color: '#43e97b' }
+    { icon: <People />, value: '5000+', label: 'Students Trained', color: '#087CFA' },
+    { icon: <EmojiEvents />, value: '100+', label: 'Courses Delivered', color: '#FF6B35' },
+    { icon: <Star />, value: '4.9/5', label: 'Average Rating', color: '#F4AF3D' },
+    { icon: <TrendingUp />, value: '98%', label: 'Success Rate', color: '#059862' }
   ];
 
   if (loading) {
@@ -132,7 +132,7 @@ const HomePage = () => {
       <Box
         sx={{
           py: { xs: 8, md: 12 },
-          background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)',
+          background: 'linear-gradient(180deg, #FFFFFF 0%, #F7F8FA 100%)',
           position: 'relative'
         }}
       >
@@ -157,7 +157,7 @@ const HomePage = () => {
                 sx={{
                   mb: 3,
                   fontWeight: 800,
-                  background: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
+                  background: 'linear-gradient(135deg, #087CFA 0%, #0052CC 100%)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent'
@@ -233,7 +233,7 @@ const HomePage = () => {
       <Box
         sx={{
           py: { xs: 8, md: 12 },
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #087CFA 0%, #0052CC 100%)',
           color: 'white',
           position: 'relative',
           overflow: 'hidden'
@@ -349,7 +349,7 @@ const HomePage = () => {
       <Box
         sx={{
           py: { xs: 8, md: 12 },
-          background: 'linear-gradient(180deg, #fafafa 0%, #ffffff 100%)'
+          background: 'linear-gradient(180deg, #F7F8FA 0%, #FFFFFF 100%)'
         }}
       >
         <Container maxWidth="xl">
@@ -375,7 +375,7 @@ const HomePage = () => {
                     sx={{
                       mb: 4,
                       fontWeight: 800,
-                      background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                      background: 'linear-gradient(135deg, #059862 0%, #087CFA 100%)',
                       backgroundClip: 'text',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent'

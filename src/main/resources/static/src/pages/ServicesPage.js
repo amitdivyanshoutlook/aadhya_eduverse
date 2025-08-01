@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Typography, Grid, Card, CardMedia, CardContent, CardActions, Button, Breadcrumbs, Link, Tabs, Tab } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { 
+  Grid, 
+  CircularProgress, 
+  Alert, 
+  Box,
+  Typography,
+  Tabs,
+  Tab,
+  Paper,
+  Fade,
+  Slide
+} from '@mui/material';
+import PageLayout from '../components/common/PageLayout';
+import ModernCard from '../components/common/ModernCard';
 import api from '../services/api';
 
 const ServicesPage = () => {
@@ -41,87 +53,118 @@ const ServicesPage = () => {
 
   if (loading) {
     return (
-      <Container sx={{ py: 8 }}>
-        <Typography>Loading...</Typography>
-      </Container>
+      <PageLayout
+        title="Our Services"
+        subtitle="Professional training and educational services"
+        breadcrumbs={['Services']}
+        showHero={false}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '40vh',
+            flexDirection: 'column',
+            gap: 2
+          }}
+        >
+          <CircularProgress size={60} thickness={4} />
+          <Typography variant="h6" color="text.secondary">
+            Loading our comprehensive services...
+          </Typography>
+        </Box>
+      </PageLayout>
     );
   }
 
   if (error) {
     return (
-      <Container sx={{ py: 8 }}>
-        <Typography color="error">{error}</Typography>
-      </Container>
+      <PageLayout
+        title="Our Services"
+        subtitle="Professional training and educational services"
+        breadcrumbs={['Services']}
+        showHero={false}
+      >
+        <Alert 
+          severity="error" 
+          sx={{ 
+            borderRadius: 2,
+            border: '1px solid #E53E3E',
+            backgroundColor: 'rgba(229, 62, 62, 0.04)'
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Oops! Something went wrong
+          </Typography>
+          <Typography>{error}</Typography>
+        </Alert>
+      </PageLayout>
     );
   }
 
   return (
-    <Box sx={{ py: 4 }}>
-      <Container maxWidth="lg">
-        <Breadcrumbs sx={{ mb: 4 }}>
-          <Link component={RouterLink} to="/" underline="hover" color="inherit">
-            Home
-          </Link>
-          <Typography color="text.primary">Services</Typography>
-        </Breadcrumbs>
-
-        <Typography variant="h3" component="h1" gutterBottom>
-          Our Services
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary" paragraph sx={{ mb: 4 }}>
-          We offer a wide range of educational services to help students and professionals develop their skills and advance their careers.
-        </Typography>
-
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 4 }}>
-          <Tabs 
-            value={activeTab} 
-            onChange={handleTabChange} 
-            textColor="primary"
-            indicatorColor="primary"
-          >
-            <Tab label="All Services" />
-            {categories.map((category, index) => (
-              <Tab key={index} label={category} />
-            ))}
-          </Tabs>
-        </Box>
-
-        <Grid container spacing={4}>
-          {filteredServices.map((service) => (
-            <Grid item key={service.id} xs={12} sm={6} md={4}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', transition: '0.3s', '&:hover': { transform: 'translateY(-8px)', boxShadow: 6 } }}>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={service.imageUrl || '/images/service-placeholder.jpg'}
-                  alt={service.name}
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="subtitle2" color="primary" gutterBottom>
-                    {service.category}
-                  </Typography>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {service.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {service.shortDescription}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button 
-                    size="small" 
-                    component={RouterLink} 
-                    to={`/services/${service.id}`}
-                  >
-                    Learn More
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
+    <PageLayout
+      title="Our Services"
+      subtitle="We offer a wide range of educational services to help students and professionals develop their skills and advance their careers."
+      breadcrumbs={['Services']}
+      heroBackground="gradient"
+    >
+      {/* Category Tabs */}
+      <Paper 
+        elevation={1} 
+        sx={{ 
+          mb: 6, 
+          borderRadius: 2,
+          overflow: 'hidden',
+          backgroundColor: '#FFFFFF'
+        }}
+      >
+        <Tabs 
+          value={activeTab} 
+          onChange={handleTabChange} 
+          textColor="primary"
+          indicatorColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{
+            '& .MuiTab-root': {
+              textTransform: 'none',
+              fontWeight: 500,
+              fontSize: '0.875rem',
+              minHeight: '48px',
+              px: 3
+            }
+          }}
+        >
+          <Tab label="All Services" />
+          {categories.map((category, index) => (
+            <Tab key={index} label={category} />
           ))}
-        </Grid>
-      </Container>
-    </Box>
+        </Tabs>
+      </Paper>
+
+      {/* Services Grid */}
+      <Grid container spacing={4}>
+        {filteredServices.map((service, index) => (
+          <Grid item key={service.id} xs={12} sm={6} lg={4}>
+            <Slide in timeout={800 + index * 100} direction="up">
+              <Box>
+                <ModernCard
+                  title={service.name}
+                  description={service.shortDescription}
+                  imageUrl={service.imageUrl || '/images/service-placeholder.jpg'}
+                  category={service.category}
+                  link={`/services/${service.id}`}
+                  linkText="Learn More"
+                  variant={index < 2 ? 'featured' : 'default'}
+                />
+              </Box>
+            </Slide>
+          </Grid>
+        ))}
+      </Grid>
+    </PageLayout>
   );
 };
 
