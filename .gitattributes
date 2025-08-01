@@ -1,0 +1,30 @@
+# Java/Maven files
+/mvnw text eol=lf
+*.cmd text eol=crlf
+
+# Node.js files
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Shell scripts (keep LF even on Windows)
+*.sh text eol=lf
+
+# PowerShell scripts (use CRLF)
+*.ps1 text eol=crlf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
